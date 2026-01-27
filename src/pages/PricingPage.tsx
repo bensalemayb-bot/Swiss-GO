@@ -99,14 +99,10 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
       }
 
       // For document packs (CV, LM, Duo, Integral), check if user has credits
-      if (user && (cvCredits > 0 || lmCredits > 0)) {
-         // User has credits, redirect to generation page
-         onNavigate(AppRoute.GENERATE, `?pack=${packId}`);
-      } else {
-         // No credits, show payment modal
-         setSelectedPack(pack);
-         setShowPaymentModal(true);
-      }
+      // For document packs (CV, LM, Duo, Integral), always show payment modal
+      // The "Generate" button is available separately for users who want to use their credits
+      setSelectedPack(pack);
+      setShowPaymentModal(true);
    };
 
    const handleUpsellAccept = () => {

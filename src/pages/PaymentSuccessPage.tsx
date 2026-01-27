@@ -17,8 +17,8 @@ export const PaymentSuccessPage: React.FC<PaymentSuccessPageProps> = ({ onNaviga
     // Fonction de téléchargement de l'E-book
     const downloadEbook = () => {
         const a = document.createElement('a');
-        a.href = '/E-book-SwissGO.pdf';
-        a.download = 'E-book-SwissGO.pdf';
+        a.href = '/Ebook_SwissGO_Action.pdf';
+        a.download = 'Ebook_SwissGO_Action.pdf';
         a.target = '_blank';
         document.body.appendChild(a);
         a.click();
