@@ -6,6 +6,7 @@ import { supabase } from '../lib/supabaseClient';
 import { UpsellModal } from '../components/UpsellModal';
 import { PaymentModal } from '../components/PaymentModal';
 import { useUpsell } from '../hooks/useUpsell';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface PricingPageProps {
    onNavigate: (page: AppRoute, params?: string) => void;
@@ -13,6 +14,7 @@ interface PricingPageProps {
 
 export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
    const { user, cvCredits, lmCredits, refreshCredits } = useAuth();
+   const { t } = useLanguage();
    const { isUpsellOpen, currentOffer, showUpsell, acceptUpsell, declineUpsell, closeUpsell } = useUpsell();
    const [selectedPack, setSelectedPack] = useState<PricingPack | null>(null);
    const [showPaymentModal, setShowPaymentModal] = useState(false);
@@ -219,7 +221,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
                            onClick={() => onNavigate(AppRoute.GENERATE, `?pack=${pack.id}`)}
                            className="w-full py-4 mt-2 text-xs font-bold uppercase tracking-[0.2em] bg-white/5 border border-luxury-gold/50 text-luxury-gold hover:bg-luxury-gold hover:text-black rounded-sm transition-all duration-300"
                         >
-                           Générer maintenant
+                           {t('btn_generate_now')}
                         </button>
                      )}
                   </div>

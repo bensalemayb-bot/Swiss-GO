@@ -39,6 +39,7 @@ export const translations = {
     prod_title: "Documents Essentiels",
     prod_view_all: "Voir toutes les offres 👁️",
     btn_choose: "Choisir",
+    btn_generate_now: "Générer maintenant",
 
     // ========== LANDING PAGE - PACK INTEGRAL ==========
     section_integral_title: "L'Offre Ultime",
@@ -187,6 +188,7 @@ export const translations = {
     prod_title: "Essential Documents",
     prod_view_all: "View all offers 👁️",
     btn_choose: "Select",
+    btn_generate_now: "Generate now",
 
     // ========== LANDING PAGE - PACK INTEGRAL ==========
     section_integral_title: "The Ultimate Offer",
@@ -335,6 +337,7 @@ export const translations = {
     prod_title: "Wesentliche Dokumente",
     prod_view_all: "Alle Angebote anzeigen 👁️",
     btn_choose: "Auswählen",
+    btn_generate_now: "Jetzt generieren",
 
     // ========== LANDING PAGE - PACK INTEGRAL ==========
     section_integral_title: "Das ultimative Angebot",
@@ -483,6 +486,7 @@ export const translations = {
     prod_title: "Documenti Essenziali",
     prod_view_all: "Visualizza tutte le offerte 👁️",
     btn_choose: "Scegli",
+    btn_generate_now: "Genera ora",
 
     // ========== LANDING PAGE - PACK INTEGRAL ==========
     section_integral_title: "L'Offerta Definitiva",

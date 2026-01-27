@@ -339,7 +339,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                     onClick={() => onNavigate(AppRoute.GENERATE, `?pack=${pack.id}`)}
                     className="w-full py-3 mt-2 text-xs font-bold uppercase tracking-wider bg-white/5 border border-luxury-gold/50 text-luxury-gold hover:bg-luxury-gold hover:text-black rounded-sm transition-all duration-300"
                   >
-                    Générer maintenant
+                    {t('btn_generate_now')}
                   </button>
                 )}
               </div>
