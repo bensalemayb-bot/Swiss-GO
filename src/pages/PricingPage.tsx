@@ -212,6 +212,16 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
                      >
                         Choisir
                      </button>
+
+                     {/* Show Generate button if user has credits and it's not a job offer pack */}
+                     {user && (cvCredits > 0 || lmCredits > 0) && !pack.id.startsWith('oe-') && (
+                        <button
+                           onClick={() => onNavigate(AppRoute.GENERATE, `?pack=${pack.id}`)}
+                           className="w-full py-4 mt-2 text-xs font-bold uppercase tracking-[0.2em] bg-white/5 border border-luxury-gold/50 text-luxury-gold hover:bg-luxury-gold hover:text-black rounded-sm transition-all duration-300"
+                        >
+                           Générer maintenant
+                        </button>
+                     )}
                   </div>
                ))}
             </div>

@@ -332,6 +332,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                 >
                   {t('btn_choose')}
                 </button>
+
+                {/* Show Generate button if user has credits and it's not a job offer pack */}
+                {user && (cvCredits > 0 || lmCredits > 0) && !pack.id.startsWith('oe-') && (
+                  <button
+                    onClick={() => onNavigate(AppRoute.GENERATE, `?pack=${pack.id}`)}
+                    className="w-full py-3 mt-2 text-xs font-bold uppercase tracking-wider bg-white/5 border border-luxury-gold/50 text-luxury-gold hover:bg-luxury-gold hover:text-black rounded-sm transition-all duration-300"
+                  >
+                    Générer maintenant
+                  </button>
+                )}
               </div>
             ))}
           </div>
