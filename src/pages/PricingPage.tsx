@@ -79,6 +79,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
       const pack = [...documentPacks, ...coachingPacks].find(p => p.id === packId);
       if (!pack) return;
 
+      // Special handling for job offer packs (they don't use credits, always show payment)
       if (packId === 'oe-pack-50') {
          setSelectedPack(pack);
          showUpsell({
@@ -92,8 +93,15 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
                'Accès immédiat'
             ]
          });
+         return;
+      }
+
+      // For document packs (CV, LM, Duo, Integral), check if user has credits
+      if (user && (cvCredits > 0 || lmCredits > 0)) {
+         // User has credits, redirect to generation page
+         onNavigate(AppRoute.GENERATE, `?pack=${packId}`);
       } else {
-         // Pour tous les autres packs, afficher le modal de paiement
+         // No credits, show payment modal
          setSelectedPack(pack);
          setShowPaymentModal(true);
       }

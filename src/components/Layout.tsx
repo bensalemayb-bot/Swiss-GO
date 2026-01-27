@@ -16,7 +16,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, currentPage, onNavigat
   const [scrolled, setScrolled] = useState(false);
 
   const { language, setLanguage, t } = useLanguage();
-  const { user, signOut } = useAuth(); // Utilisation de l'Auth
+  const { user, cvCredits, lmCredits, signOut } = useAuth(); // Utilisation de l'Auth
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -85,6 +85,17 @@ export const Layout: React.FC<LayoutProps> = ({ children, currentPage, onNavigat
                   <span className={`absolute -bottom-2 left-1/2 w-0 h-px bg-luxury-gold transition-all duration-300 group-hover:w-full group-hover:left-0 ${currentPage === item.route ? 'w-full left-0' : ''}`}></span>
                 </button>
               ))}
+
+              {/* Show "Générer" link if user has credits */}
+              {user && (cvCredits > 0 || lmCredits > 0) && (
+                <button
+                  onClick={() => onNavigate(AppRoute.GENERATE)}
+                  className={navLinkClass(AppRoute.GENERATE)}
+                >
+                  Générer
+                  <span className={`absolute -bottom-2 left-1/2 w-0 h-px bg-luxury-gold transition-all duration-300 group-hover:w-full group-hover:left-0 ${currentPage === AppRoute.GENERATE ? 'w-full left-0' : ''}`}></span>
+                </button>
+              )}
 
               {/* Language Selector */}
               <div className="flex items-center space-x-2 border-l border-white/10 pl-6 h-6">
@@ -160,6 +171,16 @@ export const Layout: React.FC<LayoutProps> = ({ children, currentPage, onNavigat
                 {item.label}
               </button>
             ))}
+
+            {/* Show "Générer" link if user has credits */}
+            {user && (cvCredits > 0 || lmCredits > 0) && (
+              <button
+                onClick={() => { onNavigate(AppRoute.GENERATE); setIsMenuOpen(false); }}
+                className="block w-full text-left px-4 py-3 text-sm font-medium text-gray-300 hover:text-luxury-gold hover:bg-white/5 border-l-2 border-transparent hover:border-luxury-gold transition-all"
+              >
+                Générer
+              </button>
+            )}
 
             <div className="border-t border-white/10 my-2 pt-2">
               {user ? (

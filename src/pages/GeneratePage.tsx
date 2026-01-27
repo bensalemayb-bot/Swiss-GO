@@ -70,9 +70,19 @@ export const GeneratePage: React.FC = () => {
     if (hash.includes('?pack=')) {
       const pid = hash.split('?pack=')[1];
       setPackId(pid);
-      // Note: Modal de recharge supprimé - l'utilisateur vient de payer
+    } else {
+      // No pack specified, choose a default based on user's credits
+      if (cvCredits > 0 && lmCredits > 0) {
+        setPackId('pack-duo'); // User has both, default to duo
+      } else if (cvCredits > 0) {
+        setPackId('cv-pack'); // Only CV credits
+      } else if (lmCredits > 0) {
+        setPackId('lm-pack'); // Only LM credits
+      } else {
+        setPackId('cv-pack'); // Default fallback (will be blocked anyway)
+      }
     }
-  }, []);
+  }, [cvCredits, lmCredits]);
 
   // --- HANDLERS ---
   const handleInputChange = (e: any) => setFormData({ ...formData, [e.target.name]: e.target.value });
