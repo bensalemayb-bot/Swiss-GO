@@ -240,15 +240,17 @@ export const CVTemplateViewer: React.FC<CVTemplateViewerProps> = ({ isLoading, g
           {activeTab === 'cv' && cvData && (
             <div id="document-to-download" className={`relative bg-white w-[210mm] min-h-[297mm] shadow-2xl flex overflow-hidden group ${theme.fontBody} select-none`} onContextMenu={(e) => e.preventDefault()}>
               {/* Watermark de prévisualisation */}
-              <div className="absolute inset-0 pointer-events-none overflow-hidden print:hidden" style={{ zIndex: 999 }}>
-                <div className="absolute inset-0 flex flex-wrap items-center justify-center" style={{ transform: 'rotate(-45deg)', transformOrigin: 'center' }}>
-                  {[...Array(12)].map((_, i) => (
-                    <div key={i} className="text-[#D4AF37] opacity-10 text-2xl font-bold uppercase tracking-widest whitespace-nowrap mx-8 my-12">
-                      PRÉVISUALISATION SWISSGO
-                    </div>
-                  ))}
+              {!isDownloading && (
+                <div className="absolute inset-0 pointer-events-none overflow-hidden print:hidden" style={{ zIndex: 999 }}>
+                  <div className="absolute inset-0 flex flex-wrap items-center justify-center" style={{ transform: 'rotate(-45deg)', transformOrigin: 'center' }}>
+                    {[...Array(12)].map((_, i) => (
+                      <div key={i} className="text-[#D4AF37] opacity-10 text-2xl font-bold uppercase tracking-widest whitespace-nowrap mx-8 my-12">
+                        PRÉVISUALISATION SWISSGO
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
               <div className="w-[33%] bg-gray-50 border-r border-gray-200 p-8 flex flex-col text-gray-900 pt-10 print:bg-gray-50 print:block">
                 <div className="mb-10"><h2 className={`text-xl leading-tight ${theme.fontHead} ${theme.accentColor} ${theme.titleTransform}`}>{cvData.main.jobTitle}</h2></div>
                 <div className="mb-10 flex justify-center"><div className="relative w-36 h-36 rounded-2xl overflow-hidden border border-gray-200 shadow-lg bg-gray-100 group">{generatedPhoto ? <img src={generatedPhoto} alt="Profil" className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center bg-gray-200 text-gray-400"><User size={48} /></div>}</div></div>
@@ -269,15 +271,17 @@ export const CVTemplateViewer: React.FC<CVTemplateViewerProps> = ({ isLoading, g
           {activeTab === 'lm' && coverLetter && (
             <div id="document-to-download" className={`relative bg-white w-[210mm] h-[297mm] shadow-2xl p-[20mm] pt-[15mm] text-gray-900 whitespace-pre-wrap flex flex-col overflow-hidden group ${theme.fontBody} select-none`} onContextMenu={(e) => e.preventDefault()}>
               {/* Watermark de prévisualisation */}
-              <div className="absolute inset-0 pointer-events-none overflow-hidden print:hidden" style={{ zIndex: 999 }}>
-                <div className="absolute inset-0 flex flex-wrap items-center justify-center" style={{ transform: 'rotate(-45deg)', transformOrigin: 'center' }}>
-                  {[...Array(8)].map((_, i) => (
-                    <div key={i} className="text-[#D4AF37] opacity-10 text-2xl font-bold uppercase tracking-widest whitespace-nowrap mx-8 my-16">
-                      PRÉVISUALISATION SWISSGO
-                    </div>
-                  ))}
+              {!isDownloading && (
+                <div className="absolute inset-0 pointer-events-none overflow-hidden print:hidden" style={{ zIndex: 999 }}>
+                  <div className="absolute inset-0 flex flex-wrap items-center justify-center" style={{ transform: 'rotate(-45deg)', transformOrigin: 'center' }}>
+                    {[...Array(8)].map((_, i) => (
+                      <div key={i} className="text-[#D4AF37] opacity-10 text-2xl font-bold uppercase tracking-widest whitespace-nowrap mx-8 my-16">
+                        PRÉVISUALISATION SWISSGO
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
               <div className="absolute top-8 left-8 text-red-500/10 pointer-events-none print:hidden"><div className="font-bold text-5xl">+</div></div>
               <div className="mb-4 text-sm font-sans leading-tight"><div className="font-bold text-black">{coverLetter.sender.name}</div><div>{coverLetter.sender.addressLine1}</div><div>{coverLetter.sender.addressLine2}</div><div className="mt-1">{coverLetter.sender.phone}</div><div>{coverLetter.sender.email}</div></div>
               <div className="self-end w-[45%] mt-4 mb-10 text-sm font-sans leading-tight"><div className="font-bold text-black mb-1">{coverLetter.recipient.companyName}</div><div>{coverLetter.recipient.addressLine1}</div><div>{coverLetter.recipient.addressLine2}</div></div>
