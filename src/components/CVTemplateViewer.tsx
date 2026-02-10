@@ -282,11 +282,11 @@ export const CVTemplateViewer: React.FC<CVTemplateViewerProps> = ({ isLoading, g
                 </div>
               )}
               <div className="absolute top-8 left-8 text-red-500/10 pointer-events-none print:hidden"><div className="font-bold text-5xl">+</div></div>
-              <div className="mb-4 text-sm font-sans leading-tight"><div className="font-bold text-black">{coverLetter.sender.name}</div><div>{coverLetter.sender.addressLine1}</div><div>{coverLetter.sender.addressLine2}</div><div className="mt-1">{coverLetter.sender.phone}</div><div>{coverLetter.sender.email}</div></div>
-              <div className="self-end w-[45%] mt-4 mb-10 text-sm font-sans leading-tight"><div className="font-bold text-black mb-1">{coverLetter.recipient.companyName}</div><div>{coverLetter.recipient.addressLine1}</div><div>{coverLetter.recipient.addressLine2}</div></div>
-              <div className="mb-8 text-right text-sm font-sans text-gray-800">{coverLetter.meta.placeDate}</div>
+              <div className="mb-2 text-sm font-sans leading-normal"><div className="font-bold text-black">{coverLetter.sender.name}</div><div>{coverLetter.sender.addressLine1}</div><div>{coverLetter.sender.addressLine2}</div><div className="mt-1">{coverLetter.sender.phone}</div><div>{coverLetter.sender.email}</div></div>
+              <div className="ml-[90mm] mt-4 mb-6 text-sm font-sans leading-normal"><div className="font-bold text-black mb-1">{coverLetter.recipient.companyName}</div><div>{coverLetter.recipient.addressLine1}</div><div>{coverLetter.recipient.addressLine2}</div></div>
+              <div className="ml-[90mm] mb-8 text-sm font-sans text-gray-800 text-left">{coverLetter.meta.placeDate}</div>
               <div className="mb-6 font-bold text-sm text-black">{coverLetter.meta.object}</div>
-              <div className="flex-grow text-[0.85rem] leading-[1.6] text-left font-sans space-y-3">
+              <div className="flex-grow text-[0.9rem] leading-relaxed text-left font-sans space-y-4">
                 <div>{coverLetter.content.opening}</div>
                 <div>{coverLetter.content.paragraph1_Company}</div>
                 <div>{coverLetter.content.paragraph2_HardSkills}</div>
