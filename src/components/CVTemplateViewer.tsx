@@ -5,7 +5,7 @@ import { refineCoverLetter } from '../services/geminiService';
 import { supabase } from '@/lib/supabaseClient';
 import { useAuth } from '../contexts/AuthContext';
 
-declare var html2pdf: any;
+
 
 interface CVTemplateViewerProps {
   isLoading: boolean;
@@ -70,6 +70,7 @@ export const CVTemplateViewer: React.FC<CVTemplateViewerProps> = ({ isLoading, g
     setShowDownloadModal(false);
     setIsDownloading(true);
 
+    // Petit délai pour laisser la modale se fermer avant d'ouvrir le print dialog
     setTimeout(async () => {
       try {
         if (activeTab === 'photo' && generatedContent?.generatedPhoto) {
@@ -80,31 +81,29 @@ export const CVTemplateViewer: React.FC<CVTemplateViewerProps> = ({ isLoading, g
           link.click();
           document.body.removeChild(link);
         } else {
-          const element = document.getElementById('document-to-download');
-          if (!element) throw new Error("Document introuvable");
+          // Logique d'impression native pour PDF vectoriel (texte éditable)
+          const originalTitle = document.title;
 
-          let fileName = "Dossier_Candidature_Suisse.pdf";
-          if (activeTab === 'cv' && generatedContent?.cvData?.sidebar.fullName) fileName = `CV_${generatedContent.cvData.sidebar.fullName.replace(/\s+/g, '_')}.pdf`;
-          else if (activeTab === 'lm' && generatedContent?.coverLetter?.sender.name) fileName = `LM_${generatedContent.coverLetter.sender.name.replace(/\s+/g, '_')}.pdf`;
-
-          const opt = {
-            margin: 0,
-            filename: fileName,
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, useCORS: true, letterRendering: true, scrollY: 0 },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-          };
-
-          if (typeof html2pdf !== 'undefined') {
-            await html2pdf().set(opt).from(element).save();
-          } else {
-            alert("Le module d'impression n'est pas encore chargé. Réessayez dans 2 secondes.");
-            return;
+          let fileName = "Dossier_Candidature_Suisse";
+          if (activeTab === 'cv' && generatedContent?.cvData?.sidebar.fullName) {
+            fileName = `CV_${generatedContent.cvData.sidebar.fullName.replace(/\s+/g, '_')}`;
+          } else if (activeTab === 'lm' && generatedContent?.coverLetter?.sender.name) {
+            fileName = `LM_${generatedContent.coverLetter.sender.name.replace(/\s+/g, '_')}`;
           }
+
+          // Changer le titre temporairement pour proposer un nom de fichier par défaut
+          document.title = fileName;
+
+          // Lancer l'impression
+          window.print();
+
+          // Restaurer le titre
+          document.title = originalTitle;
         }
 
         const nextCvCredits = isLetterDownload ? currentCvCredits : Math.max(0, currentCvCredits - 1);
         const nextLmCredits = isLetterDownload ? Math.max(0, currentLmCredits - 1) : currentLmCredits;
+
         const { error } = await supabase
           .from('profiles')
           .update({ cv_credits: nextCvCredits, lm_credits: nextLmCredits })
@@ -119,7 +118,7 @@ export const CVTemplateViewer: React.FC<CVTemplateViewerProps> = ({ isLoading, g
 
       } catch (error) {
         console.error("Erreur téléchargement", error);
-        alert("Une erreur est survenue lors de la création du PDF. Veuillez réessayer.");
+        alert("Une erreur est survenue. Veuillez réessayer.");
       } finally {
         setIsDownloading(false);
       }

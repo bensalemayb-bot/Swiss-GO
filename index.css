@@ -1,0 +1,45 @@
+/* Global CSS */
+
+/* Print Styles for Perfect PDF Generation */
+@media print {
+
+    /* Hide the entire body content by default */
+    body * {
+        visibility: hidden;
+    }
+
+    /* Make the printable area visible */
+    #printable-area,
+    #printable-area * {
+        visibility: visible;
+    }
+
+    /* Position the printable area to fill the page */
+    #printable-area {
+        position: absolute;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: white;
+        z-index: 9999;
+    }
+
+    /* Ensure backgrounds print correctly */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* Remove page margins */
+    @page {
+        margin: 0;
+        size: auto;
+    }
+
+    /* Hide scrollbars */
+    ::-webkit-scrollbar {
+        display: none;
+    }
+}
